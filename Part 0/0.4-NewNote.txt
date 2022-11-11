@@ -1,0 +1,27 @@
+sequenceDiagram
+# Submitting Form Data to ./new_note
+browser->server: HTTP POST https://studies.cs.helsinki.fi/exampleapp/new_note
+server-->browser: HTML-code
+# Redirect to ./notes page, reloading the site
+browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/notes
+server-->browser: HTML-code
+# Retrieving style guide for .container and .notes
+browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.css
+server-->browser: main.css
+# Retrieve the js script that parse json into list elements
+browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.js
+server-->browser: main.js
+
+note over browser:
+browser starts executing js-code
+that requests JSON data from server 
+end note
+
+# Retrieve JSON data from the server
+browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/data.json
+server-->browser: [{"0": {"content": "hello!!!!!cov","date": "2022-11-11T08:35:03.949Z"}, ...}]
+
+note over browser:
+browser executes the event handler
+that renders notes to display
+end note
